@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 
 /**
  * @Description: ShiroConfiguration
- * @Company: 深圳市东深电子股份有限公司
+ *
  * @Auther: leichengyang
  * @Date: 2019/4/28 0028
  * @Version 1.0
@@ -29,6 +29,8 @@ public class ShiroConfiguration {
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/**/minApp/**", "anon");
         filterChainDefinitionMap.put("/wechat", "anon");
+        filterChainDefinitionMap.put("/wxmenu/**", "anon");
+
         filterChainDefinitionMap.put("/getAccessToken", "anon");
         filterChainDefinitionMap.put("/schoolMap", "anon");
         filterChainDefinitionMap.put("/school/**", "anon");

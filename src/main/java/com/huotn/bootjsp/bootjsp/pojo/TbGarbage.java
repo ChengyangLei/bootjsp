@@ -2,7 +2,7 @@ package com.huotn.bootjsp.bootjsp.pojo;
 
 /**
  * @Description: TbGarbage
- * @Company: 深圳市东深电子股份有限公司
+ *
  * @Auther: leichengyang
  * @Date: 2019/7/5 0005
  * @Version 1.0

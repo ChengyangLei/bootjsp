@@ -1,18 +1,23 @@
 package com.huotn.bootjsp.bootjsp.controller;
 
 
+import com.huotn.bootjsp.bootjsp.common.MenuMain;
+import com.huotn.bootjsp.bootjsp.pojo.AccessToken;
 import com.huotn.bootjsp.bootjsp.pojo.Menu;
 import com.huotn.bootjsp.bootjsp.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
  * @Description: 用户控制类
- * @Company: 深圳市东深电子股份有限公司
  * @Auther: leichengyang
  * @Date: 2019/4/28 0028
  * @Version 1.0
@@ -22,6 +27,12 @@ import java.util.List;
 public class MenuController {
     @Autowired
     private MenuService menuService;
+
+
+
+    @Resource
+    private RestTemplate restTemplate;
+
 
     @RequestMapping(value = "findAll")
     public String findAll(HttpServletRequest request) {
@@ -49,9 +60,9 @@ public class MenuController {
     }
 
     @RequestMapping(value = "updateMenu")
-    public String updateMenu(HttpServletRequest request,String id) {
+    public String updateMenu(HttpServletRequest request, String id) {
         Menu role = menuService.getMenuById(id);
-        request.setAttribute("role",role);
+        request.setAttribute("role", role);
         return "updateMenu";
     }
 

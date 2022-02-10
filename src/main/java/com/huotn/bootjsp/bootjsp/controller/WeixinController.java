@@ -2,12 +2,13 @@ package com.huotn.bootjsp.bootjsp.controller;
 
 /**
  * @Description: WeixinController
- * @Company: 深圳市东深电子股份有限公司
+ *
  * @Auther: leichengyang
  * @Date: 2019/4/29 0029
  * @Version 1.0
  */
 
+import com.huotn.bootjsp.bootjsp.common.MenuMain;
 import com.huotn.bootjsp.bootjsp.config.weixin.mp.WeChatUtil;
 import com.huotn.bootjsp.bootjsp.pojo.AccessToken;
 import com.huotn.bootjsp.bootjsp.service.WechatService;
@@ -25,6 +26,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 
 @Controller
@@ -36,6 +38,9 @@ public class WeixinController {
 
     @Autowired
     private WechatService wechatService;
+
+    @Autowired
+    private MenuMain menue;
 
     @Value("${appid}")
     private String appid;
@@ -117,6 +122,26 @@ public class WeixinController {
     public String processMsg(HttpServletRequest request) {
         // 调用核心服务类接收处理请求
         return wechatService.processRequest(request);
+    }
+
+    @GetMapping(value="/wxmenu")
+    public void home() {
+        String token="";
+        String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + "wx5f0e6b073a6f4d49" + "&secret=" + "08cf359d7664a8af8d1d71334c236f63";
+        AccessToken accessToken = restTemplate.getForObject(url, AccessToken.class);
+        if (StringUtils.hasText(accessToken.getAccess_token())) {
+            token=accessToken.getAccess_token();
+        }
+        menue.createMenu(token);
+
+    }
+
+    @GetMapping(value="/wxmenu/get")
+    public void getMenu() throws UnsupportedEncodingException {
+        String token="";
+        String url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=53_Xrj46-JcQeYq3CDBgrxGDLxkXtzkq5Fvrn9Iy_arXUaZJ7t1jzjKpUqzLvDpbLtMB6L8HZkKZrFMD8jkjXGs_jH8QuNtiX6j4ZcfFepl7VN1KekLFhtIA-PqNrdQcFiFeUWF9p9Clv1c5YifKJVgAHAFEQ";
+        String menuInfo=restTemplate.getForObject(url, String.class);
+        System.out.println(new String(menuInfo.getBytes("UTF-8"),"ISO-8859-1"));
     }
 
 

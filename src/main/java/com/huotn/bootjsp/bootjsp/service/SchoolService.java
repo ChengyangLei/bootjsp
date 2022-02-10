@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @Description: SchoolService
- * @Company: 深圳市东深电子股份有限公司
+ *
  * @Auther: leichengyang
  * @Date: 2019/5/24
  * @Version 1.0
